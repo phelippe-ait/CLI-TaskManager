@@ -4,9 +4,11 @@ import { addTask, deleteTask, completeTask, filterTasksByStatus, printTasks, get
 
 // type Command = "list" | "add" | "done" | "delete" | "filter";
 
+// Gets the arguments from the command line
 const args = process.argv.slice(2);
 const command = args[0];
 
+// Main switch statement to handle commands
 switch (command) {
   case "list":
     printTasks(getTasks());
