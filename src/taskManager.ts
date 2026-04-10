@@ -3,6 +3,7 @@ import fs from "fs";
 
 // Path to the JSON file
 const FILE_PATH = "tasks.json";
+const COMPLETED_FILE_PATH = "completedTasks.JSON";
 
 // Function to load tasks from a JSON file
 function loadTasks(): Task[] {
@@ -61,7 +62,6 @@ export function deleteTask(id: string): boolean {
   }
 
   tasks.splice(index, 1);
-  console.log("Task deleted.");
   saveTasks();
   return true;
 }
@@ -77,7 +77,6 @@ export function completeTask(id: string): boolean {
 
   completed.status = "done";
   console.log("Task marked as done.");
-  saveTasks();
   return true;
 }
 
@@ -90,4 +89,8 @@ export function filterTasksByStatus(status: Status): void {
 // Helper function to save tasks to a JSON file
 function saveTasks(): void {
   fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2));
+}
+
+export function saveToCompleted(): void {
+  fs.writeFileSync(COMPLETED_FILE_PATH, JSON.stringify(tasks, null, 2));
 }

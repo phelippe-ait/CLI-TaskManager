@@ -1,4 +1,4 @@
-import { addTask, deleteTask, completeTask, filterTasksByStatus, printTasks, getTasks } from "./taskManager";
+import { addTask, deleteTask, completeTask, filterTasksByStatus, printTasks, getTasks, saveToCompleted,  } from "./taskManager";
 
 // Gets the arguments from the command line
 const args = process.argv.slice(2);
@@ -6,6 +6,14 @@ const command = args[0];
 
 // Main switch statement to handle commands
 switch (command) {
+  case "menu":
+    console.log("Available commands:");
+    console.log("list - List all tasks");
+    console.log("add - Add a new task");
+    console.log("delete - Delete a task");
+    console.log("done - Complete a task");
+    console.log("filter - Filter tasks by status");
+    break;
   case "list":
     printTasks(getTasks());
     break;
@@ -25,6 +33,7 @@ switch (command) {
     }
 
     if (deleteTask(args[1])) {
+      console.log("Task deleted.");
       printTasks(getTasks());
     }
     break;
@@ -35,7 +44,8 @@ switch (command) {
     }
 
     if (completeTask(args[1])) {
-      printTasks(getTasks());
+      saveToCompleted();
+      deleteTask(args[1]);
     }
     break;
   case "filter":
