@@ -1,9 +1,5 @@
 import { addTask, deleteTask, completeTask, filterTasksByStatus, printTasks, getTasks } from "./taskManager";
 
-
-
-// type Command = "list" | "add" | "done" | "delete" | "filter";
-
 // Gets the arguments from the command line
 const args = process.argv.slice(2);
 const command = args[0];
@@ -27,16 +23,20 @@ switch (command) {
       console.log("Please provide a task id.");
       break;
     }
-    deleteTask(args[1]);
-    printTasks(getTasks());
+
+    if (deleteTask(args[1])) {
+      printTasks(getTasks());
+    }
     break;
   case "done":
     if (!args[1]) {
       console.log("Please provide a task id.");
       break;
     }
-    completeTask(args[1]);
-    printTasks(getTasks());
+
+    if (completeTask(args[1])) {
+      printTasks(getTasks());
+    }
     break;
   case "filter":
     if (args[1] !== "todo" && args[1] !== "done") {
